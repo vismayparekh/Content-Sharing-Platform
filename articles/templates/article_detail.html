@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Article Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            padding-top: 50px;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        .container {
+            max-width: 800px;
+            background-color: #fff; /* White background for container */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            padding: 30px;
+            margin-top: 20px;
+        }
+        .btn-group {
+            margin-top: 20px;
+        }
+        .error-message {
+            color: #dc3545; /* Bootstrap danger color */
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.content }}</p>
+        <p><strong>Publication Date:</strong> {{ article.publication_date }}</p>
+        <p><strong>Author:</strong> {{ article.author }}</p>
+        <div class="btn-group">
+            <a href="{% url 'article-update' article.id %}" class="btn btn-primary mr-2">Update</a>
+            <form action="{% url 'article-delete' article.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+        </div>
+        <a href="{% url 'article-list' %}" class="btn btn-secondary mt-3">Back to Article List</a>
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
